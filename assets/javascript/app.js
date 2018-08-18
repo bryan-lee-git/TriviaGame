@@ -120,9 +120,30 @@ function runGame() {
 //  MAIN PROGRAM
 //-------------------------------------
 
-  $("#gameContain").hide(0);
+$("#gameContain").hide(0);
 
-  $("#start").on("click", function() {
+$("#start").on("click", function() {
     $("#start").slideUp(200);
     runGame();
-  })
+});
+
+
+//  disable more than one checkbox being checked at a time
+
+$("#one").on("click", function() {
+    $('#one input:checkbox').click(function() {
+        $('#one input:checkbox').not(this).prop('checked', false);
+    });
+});
+
+$("#two").on("click", function() {
+    $('#two input:checkbox').click(function() {
+        $('#two input:checkbox').not(this).prop('checked', false);
+    });
+});
+
+$("#three").on("click", function() {
+    $('#three input:checkbox').click(function() {
+        $('#three input:checkbox').not(this).prop('checked', false);
+    });
+});
