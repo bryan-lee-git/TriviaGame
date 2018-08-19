@@ -1,11 +1,33 @@
 body {
     text-align:center;
+    background-image: url(../images/matrix-background.gif);
+    background-size: 100%;
 }
 
 h2 {
     margin-bottom: 20px;
 }
 
+.jumbotron {
+    width: 100%;
+    margin-top: 20px;
+}
+
 .question {
     margin-bottom: 20px;
+}
+
+#gameContain {
+    background-color: rgba(0, 0, 0, .6);
+    padding: 20px;
+    border-radius: 5px;
+}
+
+#triviaForm {
+    color: white;
+}
+
+.scoreScreen {
+    color: white;
+    width: 100%;
 }

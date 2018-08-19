@@ -1,9 +1,3 @@
-//  Create a trivia form with multiple choice or true/false options (your choice).
-
-//  Game ends when the time runs out. The page will reveal the number of questions that players answer correctly and incorrectly.
-
-//  Don't let the player pick more than one answer per question.
-
 //-------------------------------------
 //  GLOBAL VARIABLES 
 //-------------------------------------
@@ -15,38 +9,66 @@ var time = 0;
 var intervalId = 0;
 var clockRunning = false;
 var currentTime = 0;
+var questionOneAnswer = "";
+var questionTwoAnswer = "";
+var questionThreeAnswer = "";
 
 //  Question 1
 var questionOne = {
-    question: "this",
-    answerOne: "this",
-    answerTwo: "this",
-    answerThree: "this"
+
+    question: "What is the JavaScript syntax for declaring a variable?",
+    answerOne: "declare",
+    answerTwo: "v",
+    answerThree: "var",
+    correctAnswer: "option3",
+
+    fillArea: function() {
+        $("#questionOne").html(this.question);
+        $("#q1a1").html(this.answerOne);
+        $("#q1a2").html(this.answerTwo);
+        $("#q1a3").html(this.answerThree);
+    }
 }
 
 //  Question 2
 var questionTwo = {
-    question: "this",
-    answerOne: "this",
-    answerTwo: "this",
-    answerThree: "this"
+
+    question: "What programming language uses the $('#stuff'); syntax?",
+    answerOne: "HTML",
+    answerTwo: "PHP",
+    answerThree: "jQuery",
+    correctAnswer: "option3",
+
+    fillArea: function() {
+        $("#questionTwo").html(this.question);
+        $("#q2a1").html(this.answerOne);
+        $("#q2a2").html(this.answerTwo);
+        $("#q2a3").html(this.answerThree);
+    }
 }
 
 //  Question 3
 var questionThree = {
-    question: "this",
-    answerOne: "this",
-    answerTwo: "this",
-    answerThree: "this"
+
+    question: "What does the CSS acronym stand for?",
+    answerOne: "Creative Class Structures",
+    answerTwo: "Cascading Style Sheets",
+    answerThree: "Crazy Styling Stuff",
+    correctAnswer: "option2",
+
+    fillArea: function() {
+        $("#questionThree").html(this.question);
+        $("#q3a1").html(this.answerOne);
+        $("#q3a2").html(this.answerTwo);
+        $("#q3a3").html(this.answerThree);
+    }
 }
 
 //-------------------------------------
 //  FUNCTIONS
 //-------------------------------------
 
-//  generate form function
-
-//  game timer function
+//  game timer function - also controls if statements for time constraints
 
 var gameTimer = {
 
@@ -80,9 +102,11 @@ var gameTimer = {
       //  show the converted time in the timeArea div.
       $("#timeArea").html(currentTime);
       
-      if (gameTimer.time === 30) {
+      if (gameTimer.time === 10) {
         gameTimer.stop();
         alert ("TIME'S UP!");
+        validateAnswers();
+        displayFinalScore();
         }
     },
   
@@ -96,54 +120,107 @@ var gameTimer = {
       if (seconds < 10) {
         seconds = "0" + seconds;
       }
-  
+
       if (minutes === 0) {
         minutes = "00";
-      }
-  
-      else if (minutes < 10) {
+
+      } else if (minutes < 10) {
         minutes = "0" + minutes;
       }
-      
-      return minutes + ":" + seconds;
-    },
 
+      return minutes + ":" + seconds;
+    }
 };
+
+//  function to fill all question areas
+
+function fillQuestions() {
+    questionOne.fillArea();
+    questionTwo.fillArea();
+    questionThree.fillArea();
+};
+
+//  function to validate answers 
+
+function validateAnswers() {
+    
+    //  question one
+    if (questionOneAnswer === questionOne.correctAnswer) {
+        rightAnswers++;
+    } else if (questionOneAnswer != questionOne.correctAnswer) {
+        wrongAnswers++;
+    }
+    //question two
+    if (questionTwoAnswer === questionTwo.correctAnswer) {
+        rightAnswers++;
+    } else if (questionTwoAnswer != questionTwo.correctAnswer) {
+        wrongAnswers++;
+    }
+    //question three
+    if (questionThreeAnswer === questionThree.correctAnswer) {
+        rightAnswers++;
+    } else if (questionThreeAnswer != questionTwo.correctAnswer) {
+        wrongAnswers++;
+    }
+};
+
+//  function to display final score
+function displayFinalScore() {
+    //  empty game container to display score
+    $("#gameContain").empty();
+    //  create div to display trivia score
+    var finalScore = $("<div>");
+    finalScore.addClass("scoreScreen col-sm-12");
+    $("#gameContain").append(finalScore);
+    finalScore.html("<h2>" + "You got " + rightAnswers + " right answer(s)" + "<br>" + "and " + wrongAnswers + " wrong answer(s)." + "</h2>");
+    var restartBtn = $("<button class='btn btn-success' id='restart'>TRY AGAIN</button>");
+    finalScore.after(restartBtn);
+    //  functionality for restart button
+    $("#restart").on("click", function() {
+    window.location.reload();
+    });
+}
 
 //  function to show trivia quiz and start timer
 function runGame() {
     $("#gameContain").show(500);
+    fillQuestions();
     gameTimer.start();
-}
+};
 
 //-------------------------------------
 //  MAIN PROGRAM
 //-------------------------------------
 
+
+//  hide game container until start button is clicked
 $("#gameContain").hide(0);
 
+//  start game on start button click
 $("#start").on("click", function() {
     $("#start").slideUp(200);
     runGame();
 });
 
+//  disable more than one checkbox being checked at a time for all question areas
 
-//  disable more than one checkbox being checked at a time
-
-$("#one").on("click", function() {
-    $('#one input:checkbox').click(function() {
+$('#one input:checkbox').click(function() {
+        questionOneAnswer = "";
         $('#one input:checkbox').not(this).prop('checked', false);
-    });
+        questionOneAnswer = this.value;
+        console.log(questionOneAnswer);
 });
 
-$("#two").on("click", function() {
-    $('#two input:checkbox').click(function() {
+$('#two input:checkbox').click(function() {
+        questionTwoAnswer = "";
         $('#two input:checkbox').not(this).prop('checked', false);
-    });
+        questionTwoAnswer = this.value;
+        console.log(questionTwoAnswer);
 });
 
-$("#three").on("click", function() {
-    $('#three input:checkbox').click(function() {
+$('#three input:checkbox').click(function() {
+        questionThreeAnswer = "";
         $('#three input:checkbox').not(this).prop('checked', false);
-    });
+        questionThreeAnswer = this.value;
+        console.log(questionThreeAnswer);
 });
