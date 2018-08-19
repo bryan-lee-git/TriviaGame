@@ -1,21 +1,32 @@
+/*--------------------------------------------------------------------------------------------*/
+/* FONTS */
+/*--------------------------------------------------------------------------------------------*/
+
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro');
+
+/*--------------------------------------------------------------------------------------------*/
+/* Global Styles */
+/*--------------------------------------------------------------------------------------------*/
+
 body {
+    font-family: 'Source Code Pro', monospace;
     text-align:center;
     background-image: url(../images/matrix-background.gif);
     background-size: 100%;
+}
+
+h1 {
+    font-size: 20px;
+    font-weight: bolder;
 }
 
 h2 {
     margin-bottom: 20px;
 }
 
-.jumbotron {
-    width: 100%;
-    margin-top: 20px;
-}
-
-.question {
-    margin-bottom: 20px;
-}
+/*--------------------------------------------------------------------------------------------*/
+/* IDs */
+/*--------------------------------------------------------------------------------------------*/
 
 #gameContain {
     background-color: rgba(0, 0, 0, .6);
@@ -27,7 +38,33 @@ h2 {
     color: white;
 }
 
+/* Classes */
+
+.footer {
+    color: white;
+    padding: 10px;
+}
+
+.jumbotron {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.question {
+    margin-bottom: 20px;
+}
+
 .scoreScreen {
     color: white;
     width: 100%;
+}
+
+/*--------------------------------------------------------------------------------------------*/
+/* MEDIA QUERIES */
+/*--------------------------------------------------------------------------------------------*/
+
+@media screen and (max-width: 420px) {
+    .footer {
+        display: none;
+    }
 }

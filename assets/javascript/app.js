@@ -38,7 +38,7 @@ var questionOne = {
         $("#q1a2").html(this.answerTwo);
         $("#q1a3").html(this.answerThree);
     }
-}
+};
 //  Question 2 Object
 var questionTwo = {
 
@@ -54,7 +54,7 @@ var questionTwo = {
         $("#q2a2").html(this.answerTwo);
         $("#q2a3").html(this.answerThree);
     }
-}
+};
 //  Question 3 Object
 var questionThree = {
 
@@ -70,12 +70,13 @@ var questionThree = {
         $("#q3a2").html(this.answerTwo);
         $("#q3a3").html(this.answerThree);
     }
-}
+};
 
 //----------------------------------------------------------------------------------
 //  LEVEL 2 QUESTIONS 
 //----------------------------------------------------------------------------------
 
+//  Question 4 Object
 var questionFour = {
 
     question: "What does the acronym 'CDN' stand for?",
@@ -90,8 +91,8 @@ var questionFour = {
         $("#q1a2").html(this.answerTwo);
         $("#q1a3").html(this.answerThree);
     }
-}
-//  Question 2 Object
+};
+//  Question 5 Object
 var questionFive = {
 
     question: "What is a method?",
@@ -106,8 +107,8 @@ var questionFive = {
         $("#q2a2").html(this.answerTwo);
         $("#q2a3").html(this.answerThree);
     }
-}
-//  Question 3 Object
+};
+//  Question 6 Object
 var questionSix = {
 
     question: "If you wanted to run a function only when a certain condition was met, what would you employ?",
@@ -122,12 +123,13 @@ var questionSix = {
         $("#q3a2").html(this.answerTwo);
         $("#q3a3").html(this.answerThree);
     }
-}
+};
 
 //----------------------------------------------------------------------------------
 //  LEVEL 3 QUESTIONS 
 //----------------------------------------------------------------------------------
 
+//  Question 7 Object
 var questionSeven = {
 
     question: "Arrays are used...",
@@ -142,8 +144,8 @@ var questionSeven = {
         $("#q1a2").html(this.answerTwo);
         $("#q1a3").html(this.answerThree);
     }
-}
-//  Question 2 Object
+};
+//  Question 8 Object
 var questionEight = {
 
     question: "What does it mean if a variable has a 'local' scope?",
@@ -158,8 +160,8 @@ var questionEight = {
         $("#q2a2").html(this.answerTwo);
         $("#q2a3").html(this.answerThree);
     }
-}
-//  Question 3 Object
+};
+//  Question 9 Object
 var questionNine = {
 
     question: "What should you do in order to easily test that snippets of code are working properly",
@@ -174,7 +176,7 @@ var questionNine = {
         $("#q3a2").html(this.answerTwo);
         $("#q3a3").html(this.answerThree);
     }
-}
+};
 
 //----------------------------------------------------------------------------------
 //  FUNCTIONS
@@ -215,6 +217,65 @@ function levelOneQuestions() {
     console.log(questionThreeAnswer);
     });
 };
+//  function to validate level one answers and add to score
+function levelOneValidate() {
+    
+    //  question one
+    if (questionOneAnswer === questionOne.correctAnswer) {
+        rightAnswers++;
+    } else if (questionOneAnswer != questionOne.correctAnswer) {
+        wrongAnswers++;
+    }
+    //question two
+    if (questionTwoAnswer === questionTwo.correctAnswer) {
+        rightAnswers++;
+    } else if (questionTwoAnswer != questionTwo.correctAnswer) {
+        wrongAnswers++;
+    }
+    //question three
+    if (questionThreeAnswer === questionThree.correctAnswer) {
+        rightAnswers++;
+    } else if (questionThreeAnswer != questionThree.correctAnswer) {
+        wrongAnswers++;
+    }
+};
+//  function to display final score on screen and generate restart button
+function levelOneScore() {
+    //  empty game container to display score
+    $("#triviaForm").hide();
+    //  create div to display trivia score
+    var finalScore = $("<div>");
+    //  give it the appropriate classes
+    finalScore.addClass("scoreScreen col-sm-12");
+    //  add it to the game area
+    $("#gameContain").append(finalScore);
+    // if any wrong answers, restart from beginning
+    if (rightAnswers < 3) {
+        //  show score in the score display div
+        finalScore.html("<h2>" + "You have " + rightAnswers + " right answer(s)" + "<br>" + "and " + wrongAnswers + " wrong answer(s)." + "<br>" + "All answers must be correct to continue." + "</h2>");
+        var restartOneBtn = $("<button class='btn btn-success' id='restartOne'>TRY AGAIN</button>");
+        finalScore.after(restartOneBtn);
+        //  functionality for restart button
+        $("#restartOne").on("click", function() {
+            location.reload();
+        })
+    };
+    //  if all right answers, allow entry to level two
+    if (rightAnswers === 3) {
+        finalScore.html("<h2>" + "You have " + rightAnswers + " right answer(s)" + "<br>" + "and " + wrongAnswers + " wrong answer(s)." + "<br>" + "You've leveled up!" + "</h2>");
+        var levelTwoBtn = $("<button class='btn btn-success' id='levelTwo'>BEGIN LEVEL 2</button>");
+        finalScore.after(levelTwoBtn);
+        //  functionality for restart button
+        $("#levelTwo").on("click", function() {
+            $('.form-check-input').prop('checked', false);
+            finalScore.hide(500);
+            $("#levelTwo").hide(500);
+            levelTwoQuestions();
+            $("#triviaForm").show(500);
+            gameTimer.start();
+        });
+    }
+};
 //  function to fill level two question areas from question objects, assign clicks/answers
 function levelTwoQuestions() {
     questionFour.fillArea();
@@ -243,6 +304,60 @@ function levelTwoQuestions() {
         questionSixAnswer = this.value;
         console.log(questionSixAnswer);
     });
+};
+//  function to validate level two answers and add to score
+function levelTwoValidate() {
+    //question four
+    if (questionFourAnswer === questionFour.correctAnswer) {
+        rightAnswers++;
+    } else if (questionFourAnswer != questionFour.correctAnswer) {
+        wrongAnswers++;
+    }
+    //question five
+    if (questionFiveAnswer === questionFive.correctAnswer) {
+        rightAnswers++;
+    } else if (questionFiveAnswer != questionFive.correctAnswer) {
+        wrongAnswers++;
+    }
+    //question six
+    if (questionSixAnswer === questionSix.correctAnswer) {
+        rightAnswers++;
+    } else if (questionSixAnswer != questionSix.correctAnswer) {
+        wrongAnswers++;
+    }
+};
+//  function to display final score on screen and generate restart button
+function levelTwoScore() {
+    //  empty game container to display score
+    $("#triviaForm").hide();
+    //  create div to display trivia score
+    var finalScore = $("<div>");
+    finalScore.addClass("scoreScreen col-sm-12");
+    $("#gameContain").append(finalScore);
+    if (rightAnswers < 6) {
+        //  show score in the score display div
+        finalScore.html("<h2>" + "You have " + rightAnswers + " right answer(s)" + "<br>" + "and " + wrongAnswers + " wrong answer(s)." + "<br>" + "All answers must be correct to level up." + "</h2>");
+        finalScore.html("<h2>" + "You have " + rightAnswers + " right answer(s)" + "<br>" + "and " + wrongAnswers + " wrong answer(s)." + "<br>" + "All answers must be correct to continue." + "</h2>");
+        var restartOneBtn = $("<button class='btn btn-success' id='restartOne'>TRY AGAIN</button>");
+        finalScore.after(restartOneBtn);
+        //  functionality for restart button
+        $("#restartOne").on("click", function() {
+            location.reload();
+        })
+    } else if (rightAnswers === 6) {
+        finalScore.html("<h2>" + "You have " + rightAnswers + " right answer(s)" + "<br>" + "and " + wrongAnswers + " wrong answer(s)." + "<br>" + "You've leveled up!" + "</h2>");
+        var levelThreeBtn = $("<button class='btn btn-success' id='levelThree'>BEGIN LEVEL 3</button>");
+        finalScore.after(levelThreeBtn);
+        //  functionality for restart button
+        $("#levelThree").on("click", function() {
+            $('.form-check-input').prop('checked', false);
+            finalScore.hide(500);
+            $("#levelThree").hide(500);
+            levelThreeQuestions();
+            $("#triviaForm").show(500);
+            gameTimer.start();
+        });
+    }
 };
 //  function to fill question areas from question objects, assign clicks/answers
 function levelThreeQuestions() {
@@ -273,49 +388,6 @@ function levelThreeQuestions() {
         console.log(questionNineAnswer);
     });
 };
-//  function to validate level one answers and add to score
-function levelOneValidate() {
-    
-    //  question one
-    if (questionOneAnswer === questionOne.correctAnswer) {
-        rightAnswers++;
-    } else if (questionOneAnswer != questionOne.correctAnswer) {
-        wrongAnswers++;
-    }
-    //question two
-    if (questionTwoAnswer === questionTwo.correctAnswer) {
-        rightAnswers++;
-    } else if (questionTwoAnswer != questionTwo.correctAnswer) {
-        wrongAnswers++;
-    }
-    //question three
-    if (questionThreeAnswer === questionThree.correctAnswer) {
-        rightAnswers++;
-    } else if (questionThreeAnswer != questionThree.correctAnswer) {
-        wrongAnswers++;
-    }
-};
-//  function to validate level two answers and add to score
-function levelTwoValidate() {
-    //question four
-    if (questionFourAnswer === questionFour.correctAnswer) {
-        rightAnswers++;
-    } else if (questionFourAnswer != questionFour.correctAnswer) {
-        wrongAnswers++;
-    }
-    //question five
-    if (questionFiveAnswer === questionFive.correctAnswer) {
-        rightAnswers++;
-    } else if (questionFiveAnswer != questionFive.correctAnswer) {
-        wrongAnswers++;
-    }
-    //question six
-    if (questionSixAnswer === questionSix.correctAnswer) {
-        rightAnswers++;
-    } else if (questionSixAnswer != questionSix.correctAnswer) {
-        wrongAnswers++;
-    }
-};
 //  function to validate level three answers and add to score
 function levelThreeValidate() {
     //question seven
@@ -338,47 +410,7 @@ function levelThreeValidate() {
     }
 };
 //  function to display final score on screen and generate restart button
-function levelOneScore() {
-    //  empty game container to display score
-    $("#triviaForm").hide();
-    //  create div to display trivia score
-    var finalScore = $("<div>");
-    finalScore.addClass("scoreScreen col-sm-12");
-    $("#gameContain").append(finalScore);
-    finalScore.html("<h2>" + "You have " + rightAnswers + " right answer(s)" + "<br>" + "and " + wrongAnswers + " wrong answer(s)." + "</h2>");
-    var restartBtn = $("<button class='btn btn-success' id='levelTwo'>BEGIN LEVEL 2</button>");
-    finalScore.after(restartBtn);
-    //  functionality for restart button
-    $("#levelTwo").on("click", function() {
-    finalScore.hide(500);
-    $("#levelTwo").hide(500);
-    levelTwoQuestions();
-    $("#triviaForm").show(500);
-    gameTimer.start();
-    });
-}
-//  function to display final score on screen and generate restart button
-function levelTwoScore() {
-    //  empty game container to display score
-    $("#triviaForm").hide();
-    //  create div to display trivia score
-    var finalScore = $("<div>");
-    finalScore.addClass("scoreScreen col-sm-12");
-    $("#gameContain").append(finalScore);
-    finalScore.html("<h2>" + "You have " + rightAnswers + " right answer(s)" + "<br>" + "and " + wrongAnswers + " wrong answer(s)." + "</h2>");
-    var restartBtn = $("<button class='btn btn-success' id='levelThree'>BEGIN LEVEL 3</button>");
-    finalScore.after(restartBtn);
-    //  functionality for restart button
-    $("#levelThree").on("click", function() {
-    finalScore.hide(500);
-    $("#levelThree").hide(500);
-    levelThreeQuestions();
-    $("#triviaForm").show(500);
-    gameTimer.start();
-    });
-}
-//  function to display final score on screen and generate restart button
-function finalScore() {
+function levelThreeScore() {
     //  empty game container to display score
     $("#triviaForm").hide();
     //  create div to display trivia score
@@ -386,14 +418,26 @@ function finalScore() {
     finalScore.addClass("scoreScreen col-sm-12");
     $("#gameContain").append(finalScore);
     var percentage = Math.floor(rightAnswers / (wrongAnswers + rightAnswers) * 100);
-    finalScore.html("<h2>" + "You got " + rightAnswers + " right answer(s)" + "<br>" + "and " + wrongAnswers + " wrong answer(s)." + "<br>" +  "That's " + percentage + "%!" + "</h2>");
-    var restartBtn = $("<button class='btn btn-success' id='restart'>RESTART</button>");
-    finalScore.after(restartBtn);
-    //  functionality for restart button
-    $("#restart").on("click", function() {
-    location.reload();
-    });
-}
+    if (rightAnswers < 9) {
+        //  show score in the score display div
+        finalScore.html("<h2>" + "You have " + rightAnswers + " right answer(s)" + "<br>" + "and " + wrongAnswers + " wrong answer(s)." + "<br>" + "All answers must be correct to level up." + "</h2>");
+        finalScore.html("<h2>" + "You have " + rightAnswers + " right answer(s)" + "<br>" + "and " + wrongAnswers + " wrong answer(s)." + "<br>" + "All answers must be correct to continue." + "</h2>");
+        var restartOneBtn = $("<button class='btn btn-success' id='restartOne'>TRY AGAIN</button>");
+        finalScore.after(restartOneBtn);
+        //  functionality for restart button
+        $("#restartOne").on("click", function() {
+            location.reload();
+        })        
+    } else if (rightAnswers === 9) {
+        finalScore.html("<h2>" + "You got " + rightAnswers + " right answer(s)" + "<br>" + "and " + wrongAnswers + " wrong answer(s)." + "<br>" + percentage + "%. NICE." + "</h2>");
+        var restartBtn = $("<button class='btn btn-success' id='restart'>GIVE IT ANOTHER GO</button>");
+        finalScore.after(restartBtn);
+        //  functionality for restart button
+        $("#restart").on("click", function() {
+            location.reload();
+        });
+    }
+};
 
 //----------------------------------------------------------------------------------
 //  MAIN PROGRAM
@@ -448,7 +492,7 @@ var gameTimer = {
             gameTimer.stop();
             alert("FINAL ROUND COMPLETE!");
             levelThreeValidate();
-            finalScore();
+            levelThreeScore();
         }   
     },
   
@@ -477,6 +521,6 @@ var gameTimer = {
 $("#gameContain").hide(0);
 //  start game on start button click
 $("#start").on("click", function() {
-    $("#start").slideUp(200);
+    $("#jumboContain").slideUp(500);
     runGame();
 });
