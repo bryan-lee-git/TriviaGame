@@ -242,7 +242,7 @@ function levelOneValidate() {
 //  function to display final score on screen and generate restart button
 function levelOneScore() {
     //  empty game container to display score
-    $("#triviaForm").hide();
+    $("#triviaForm").hide(500);
     //  create div to display trivia score
     var finalScore = $("<div>");
     //  give it the appropriate classes
@@ -271,7 +271,7 @@ function levelOneScore() {
             finalScore.hide(500);
             $("#levelTwo").hide(500);
             levelTwoQuestions();
-            $("#triviaForm").show(500);
+            $("#triviaForm").slideDown(500);
             gameTimer.start();
         });
     }
@@ -329,7 +329,7 @@ function levelTwoValidate() {
 //  function to display final score on screen and generate restart button
 function levelTwoScore() {
     //  empty game container to display score
-    $("#triviaForm").hide();
+    $("#triviaForm").hide(500);
     //  create div to display trivia score
     var finalScore = $("<div>");
     finalScore.addClass("scoreScreen col-sm-12");
@@ -412,7 +412,7 @@ function levelThreeValidate() {
 //  function to display final score on screen and generate restart button
 function levelThreeScore() {
     //  empty game container to display score
-    $("#triviaForm").hide();
+    $("#triviaForm").hide(500);
     //  create div to display trivia score
     var finalScore = $("<div>");
     finalScore.addClass("scoreScreen col-sm-12");
@@ -420,7 +420,6 @@ function levelThreeScore() {
     var percentage = Math.floor(rightAnswers / (wrongAnswers + rightAnswers) * 100);
     if (rightAnswers < 9) {
         //  show score in the score display div
-        finalScore.html("<h2>" + "You have " + rightAnswers + " right answer(s)" + "<br>" + "and " + wrongAnswers + " wrong answer(s)." + "<br>" + "All answers must be correct to level up." + "</h2>");
         finalScore.html("<h2>" + "You have " + rightAnswers + " right answer(s)" + "<br>" + "and " + wrongAnswers + " wrong answer(s)." + "<br>" + "All answers must be correct to continue." + "</h2>");
         var restartOneBtn = $("<button class='btn btn-success' id='restartOne'>TRY AGAIN</button>");
         finalScore.after(restartOneBtn);
@@ -478,19 +477,19 @@ var gameTimer = {
         
         if (gameTimer.time === 10) {
             gameTimer.stop();
-            alert("FIRST ROUND COMPLETE!");
+            $("#timeArea").text("TIME'S UP!");
             levelOneValidate();
             levelOneScore();
         }
         if (gameTimer.time === 20) {
             gameTimer.stop();
-            alert("SECOND ROUND COMPLETE!");
+            $("#timeArea").text("TIME'S UP!");
             levelTwoValidate();
             levelTwoScore();
         }
         if (gameTimer.time === 30) {
             gameTimer.stop();
-            alert("FINAL ROUND COMPLETE!");
+            $("#timeArea").text("TIME'S UP!");
             levelThreeValidate();
             levelThreeScore();
         }   
