@@ -16,7 +16,7 @@ body {
 }
 
 h1 {
-    font-size: 26px;
+    font-size: 40px;
     font-weight: bolder;
 }
 
@@ -40,6 +40,13 @@ h2 {
 
 /* Classes */
 
+.btn {
+    padding: 30px;
+    text-align:center;
+    margin-left: -7px;
+    width: 100%;
+}
+
 .footer {
     color: white;
     padding: 10px;
@@ -47,7 +54,9 @@ h2 {
 
 .jumbotron {
     width: 100%;
-    margin-top: 20px;
+    margin-top: 30px;
+    background-color: rgba(0, 0, 0, .6);
+    color: white;
 }
 
 .question {
@@ -62,6 +71,12 @@ h2 {
 /*--------------------------------------------------------------------------------------------*/
 /* MEDIA QUERIES */
 /*--------------------------------------------------------------------------------------------*/
+
+@media screen and (min-width: 996px) {
+    .container {
+        margin-top: 75px;
+    }
+}
 
 @media screen and (max-width: 420px) {
     .footer {
